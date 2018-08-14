@@ -5,6 +5,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
@@ -479,6 +480,13 @@ namespace MVCMusicStore.Controllers
                 }
                 context.HttpContext.GetOwinContext().Authentication.Challenge(properties, LoginProvider);
             }
+        }
+        #endregion
+        #region 自定义动作方法
+        public JsonResult CheckUserName(string username)
+        {
+            var result = Membership.FindUsersByName(username).Count == 0;
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
         #endregion
     }

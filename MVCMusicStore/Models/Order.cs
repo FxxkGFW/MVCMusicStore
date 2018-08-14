@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace MVCMusicStore.Models
 {
@@ -10,9 +11,10 @@ namespace MVCMusicStore.Models
     {
         public int OrderId { get; set; }
         public DateTime OrderDate { get; set; }
+        [Remote("CheckUserName", "Account")]
         public string UserName { get; set; }
         [Required]
-        [StringLength(160,MinimumLength =3)]
+        [StringLength(160, MinimumLength = 3)]
         public string FirstName { get; set; }
         [Required]
         [StringLength(160)]
@@ -23,7 +25,7 @@ namespace MVCMusicStore.Models
         public string PostalCode { get; set; }
         public string Country { get; set; }
         public string Phone { get; set; }
-        [RegularExpression(@"^\w + ([-+.]\w +)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$")]
+        [RegularExpression(@"^\w + ([-+.]\w +)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$", ErrorMessage = "邮件格式不正确")]
         public string Email { get; set; }
         public decimal Total { get; set; }
     }
